@@ -1,0 +1,21 @@
+# Render.com blueprint - deploy with one click
+services:
+  - type: web
+    name: churn-api
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt && python main.py"
+    startCommand: "uvicorn app.api:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+
+  - type: web
+    name: churn-dashboard
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt && python main.py"
+    startCommand: "streamlit run app/streamlit_app.py --server.port=$PORT --server.address=0.0.0.0 --server.headless=true"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0

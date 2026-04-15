@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  streamlit:
+    build: .
+    image: customer-churn:latest
+    container_name: churn-dashboard
+    ports:
+      - "8501:8501"
+    command: >
+      streamlit run app/streamlit_app.py
+      --server.port=8501
+      --server.address=0.0.0.0
+      --server.headless=true
+      --browser.gatherUsageStats=false
+    restart: unless-stopped
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./plots:/app/plots
+
+  api:
+    image: customer-churn:latest
+    container_name: churn-api
+    depends_on:
+      - streamlit
+    ports:
+      - "8000:8000"
+    command: uvicorn app.api:app --host 0.0.0.0 --port 8000
+    restart: unless-stopped
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
