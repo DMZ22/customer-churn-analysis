@@ -1,6 +1,22 @@
 # Customer Churn Analysis Project
 
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://customer-churn-analysis-czhxwqfchgufgxtkftnixe.streamlit.app/)
+[![Python](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)]()
+
 End-to-end machine learning pipeline for predicting customer churn using Python, SQL, and ML models.
+
+## 🚀 Live Demo
+
+**👉 [https://customer-churn-analysis-czhxwqfchgufgxtkftnixe.streamlit.app/](https://customer-churn-analysis-czhxwqfchgufgxtkftnixe.streamlit.app/)**
+
+The full interactive dashboard is deployed on Streamlit Community Cloud — try the live churn predictor, explore the dataset, and view model performance directly in your browser.
+
+| Resource | Link |
+|----------|------|
+| 🌐 Live App | https://customer-churn-analysis-czhxwqfchgufgxtkftnixe.streamlit.app/ |
+| 📦 GitHub | https://github.com/DMZ22/customer-churn-analysis |
+| 📄 PDF Report | [Project_Report.pdf](./Project_Report.pdf) |
 
 ## Features
 

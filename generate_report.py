@@ -25,6 +25,9 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PLOTS_DIR = os.path.join(BASE_DIR, "plots")
 OUTPUT_PDF = os.path.join(BASE_DIR, "Project_Report.pdf")
 
+LIVE_APP_URL = "https://customer-churn-analysis-czhxwqfchgufgxtkftnixe.streamlit.app/"
+GITHUB_URL = "https://github.com/DMZ22/customer-churn-analysis"
+
 
 # ─── Styles ─────────────────────────────────────────────────────────────────
 styles = getSampleStyleSheet()
@@ -172,6 +175,14 @@ def build_report():
         ["Churn Rate", f"{(df['churn'] == 'Yes').mean():.1%}"],
         ["Best Model", best_model_name],
         ["Best ROC-AUC", f"{metrics_df.iloc[0]['roc_auc']:.4f}"],
+        ["Live Demo", Paragraph(
+            f'<link href="{LIVE_APP_URL}" color="#1e88e5"><u>{LIVE_APP_URL}</u></link>',
+            ParagraphStyle("link", fontSize=8.5, textColor=colors.HexColor("#1e88e5"),
+                           fontName="Helvetica"))],
+        ["GitHub Repo", Paragraph(
+            f'<link href="{GITHUB_URL}" color="#1e88e5"><u>{GITHUB_URL}</u></link>',
+            ParagraphStyle("link", fontSize=9, textColor=colors.HexColor("#1e88e5"),
+                           fontName="Helvetica"))],
         ["Report Date", datetime.now().strftime("%B %d, %Y")],
     ]
     info_table = Table(info_data, colWidths=[5 * cm, 11 * cm])
@@ -429,7 +440,38 @@ def build_report():
     story.append(Paragraph("9. Deployment", h1_style))
     story.append(Paragraph(
         "The project ships with multiple deployment options covering local, "
-        "containerized, and cloud environments.", body_style))
+        "containerized, and cloud environments. <b>A live version is already "
+        "deployed on Streamlit Community Cloud</b> and can be accessed directly "
+        "in any browser — no setup required.", body_style))
+
+    # Live deployment callout
+    live_rows = [
+        ["🚀 LIVE DEMO", Paragraph(
+            f'<link href="{LIVE_APP_URL}" color="#ffffff"><u>{LIVE_APP_URL}</u></link>',
+            ParagraphStyle("livelink", fontSize=9, textColor=colors.white,
+                           fontName="Helvetica-Bold"))],
+        ["📦 SOURCE CODE", Paragraph(
+            f'<link href="{GITHUB_URL}" color="#ffffff"><u>{GITHUB_URL}</u></link>',
+            ParagraphStyle("ghlink", fontSize=9.5, textColor=colors.white,
+                           fontName="Helvetica-Bold"))],
+    ]
+    live_table = Table(live_rows, colWidths=[4 * cm, 12 * cm])
+    live_table.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (0, 0), colors.HexColor("#e74c3c")),
+        ("BACKGROUND", (1, 0), (1, 0), colors.HexColor("#c0392b")),
+        ("BACKGROUND", (0, 1), (0, 1), colors.HexColor("#1a1a2e")),
+        ("BACKGROUND", (1, 1), (1, 1), colors.HexColor("#16213e")),
+        ("TEXTCOLOR", (0, 0), (-1, -1), colors.white),
+        ("FONTNAME", (0, 0), (0, -1), "Helvetica-Bold"),
+        ("FONTSIZE", (0, 0), (0, -1), 11),
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ("ALIGN", (0, 0), (0, -1), "CENTER"),
+        ("LEFTPADDING", (1, 0), (1, -1), 10),
+        ("TOPPADDING", (0, 0), (-1, -1), 12),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 12),
+    ]))
+    story.append(live_table)
+    story.append(Spacer(1, 0.2 * inch))
 
     story.append(Paragraph("9.1 Local Development", h2_style))
     story.append(Paragraph(
